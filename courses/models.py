@@ -45,7 +45,7 @@ class Module(models.Model):
     order = OrderFiled(blank=True, for_fields=['course'])
 
     def __str__(self):
-        return f'{self.order}. {self.title}'
+        return "{}.{}".format(self.order, self.title)
 
     class Meta:
         ordering = ['order']
@@ -73,8 +73,7 @@ class ItamBase(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def render(self):
-        return render_to_string(f'courses/content/'
-                                f'{self._meta.model_name}.html', {'item': self})
+        return render_to_string('courses/content/{}.html'.format(self._meta.model_name), {'item': self})
 
     class Meta:
         abstract = True
